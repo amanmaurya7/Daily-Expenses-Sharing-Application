@@ -1,3 +1,4 @@
+// src/models/User.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -14,11 +15,10 @@ const userSchema = new mongoose.Schema({
     trim: true,
     lowercase: true
   },
-  mobile: {
+  mobileNumber: {
     type: String,
     required: true,
-    unique: true,
-    trim: true
+    unique: true
   },
   password: {
     type: String,
@@ -30,13 +30,9 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function(next) {
   if (this.isModified('password')) {
-    this.password = await bcrypt.hash(this.password, 8);
+    this.password = await bcrypt.hash(this.password, 10);
   }
   next();
 });
-
-userSchema.methods.validatePassword = async function(password) {
-  return bcrypt.compare(password, this.password);
-};
 
 module.exports = mongoose.model('User', userSchema);
