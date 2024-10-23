@@ -7,7 +7,6 @@ This is a simple backend service that helps manage daily expenses and makes spli
 ### User Management
 - **Sign Up & Log In**: Users can register and sign in to the app securely.
 - **Authorization**: Uses JWT tokens to protect user sessions.
-- **Profile Management**: Users can update their personal information as needed.
 
 ### Expense Management
 - **Track Expenses**: Add and keep track of daily expenses.
@@ -32,12 +31,14 @@ Make sure you have:
 
 1. **Clone the repository**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/amanmaurya7/Expense-Sharing.git
    cd expense-sharing
    
 2. Install dependencies:
 ```bash
 npm install
+npm install express mongoose joi jsonwebtoken bcryptjs cors dotenv express-async-handler pdfkit exceljs
+npm install --save-dev jest supertest
 ```
 
 3. Create a .env file in the root directory with the following variables:
@@ -112,7 +113,7 @@ curl -X POST http://localhost:3000/api/expenses \
   "description": "Lunch",
   "amount": 1500,
   "splitType": "EQUAL",
-  "participants": [
+  "splits": [
     {"userId": "<rahul_id>"},
     {"userId": "<priya_id>"},
     {"userId": "<rohit_id>"}
@@ -128,7 +129,7 @@ curl -X POST http://localhost:3000/api/expenses \
   "description": "Shopping",
   "amount": 5000,
   "splitType": "EXACT",
-  "participants": [
+  "splits": [
     {"userId": "<rahul_id>", "share": 1000},
     {"userId": "<priya_id>", "share": 2500},
     {"userId": "<rohit_id>", "share": 1500}
@@ -144,7 +145,7 @@ curl -X POST http://localhost:3000/api/expenses \
   "description": "Party",
   "amount": 8000,
   "splitType": "PERCENTAGE",
-  "participants": [
+  "splits": [
     {"userId": "<rahul_id>", "share": 40},
     {"userId": "<priya_id>", "share": 30},
     {"userId": "<rohit_id>", "share": 30}
