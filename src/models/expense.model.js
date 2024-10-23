@@ -20,7 +20,7 @@ const expenseSchema = new mongoose.Schema({
     required: true
   },
   splits: [{
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
