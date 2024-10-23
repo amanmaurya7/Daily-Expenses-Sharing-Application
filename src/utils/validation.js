@@ -14,7 +14,7 @@ const validateExpenseInput = (amount, splitType, participants) => {
     return true;
   };
   
-  module.exports = {
+  export default {
     generateExcel,
     validateExpenseInput
   };

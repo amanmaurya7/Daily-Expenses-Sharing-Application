@@ -1,26 +1,27 @@
 {
-  "name": "expense-sharing",
+  "name": "expense-sharing-app",
   "version": "1.0.0",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
+  "type": "module",
+  "description": "Daily Expenses Sharing Application",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "excel4node": "^1.8.2",
     "exceljs": "^4.4.0",
     "express": "^4.21.1",
-    "express-validator": "^7.2.0",
+    "express-async-handler": "^1.2.0",
+    "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.7.2"
+    "mongoose": "^8.7.2",
+    "pdfkit": "^0.14.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
   }
 }

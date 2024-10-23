@@ -57,8 +57,142 @@ npm run dev
 npm start
 ```
 
-## API Documentation
+# API Documentation
+## 1. User Registration
+### Register first user (Rahul)
+curl -X POST http://localhost:3000/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Rahul",
+  "email": "rahul@example.com",
+  "mobileNumber": "9876543210",
+  "password": "password123"
+}'
 
-### User Endpoints
+### Register second user (Priya)
+curl -X POST http://localhost:3000/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Priya",
+  "email": "priya@example.com",
+  "mobileNumber": "8765432109",
+  "password": "password123"
+}'
 
-#### POST /api/users/register
+### Register third user (Rohit)
+curl -X POST http://localhost:3000/api/users/register \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Rohit",
+  "email": "rohit@example.com",
+  "mobileNumber": "7654321098",
+  "password": "password123"
+}'
+
+## 2. User Login (Save the tokens returned)
+### Login as Rahul
+curl -X POST http://localhost:3000/api/users/login \
+-H "Content-Type: application/json" \
+-d '{
+  "email": "rahul@example.com",
+  "password": "password123"
+}'
+
+### Save the token received in response for Rahul
+export RAHUL_TOKEN="<token_from_response>"
+
+## 3. Create Expenses with Different Split Types
+
+### 3.1 Equal Split Example
+### Rahul pays for lunch (equal split)
+curl -X POST http://localhost:3000/api/expenses \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer $RAHUL_TOKEN" \
+-d '{
+  "description": "Lunch",
+  "amount": 1500,
+  "splitType": "EQUAL",
+  "participants": [
+    {"userId": "<rahul_id>"},
+    {"userId": "<priya_id>"},
+    {"userId": "<rohit_id>"}
+  ]
+}'
+
+### 3.2 Exact Split Example
+### Priya pays for shopping (exact split)
+curl -X POST http://localhost:3000/api/expenses \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer $PRIYA_TOKEN" \
+-d '{
+  "description": "Shopping",
+  "amount": 5000,
+  "splitType": "EXACT",
+  "participants": [
+    {"userId": "<rahul_id>", "share": 1000},
+    {"userId": "<priya_id>", "share": 2500},
+    {"userId": "<rohit_id>", "share": 1500}
+  ]
+}'
+
+### 3.3 Percentage Split Example
+### Rohit pays for a party (percentage split)
+curl -X POST http://localhost:3000/api/expenses \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer $ROHIT_TOKEN" \
+-d '{
+  "description": "Party",
+  "amount": 8000,
+  "splitType": "PERCENTAGE",
+  "participants": [
+    {"userId": "<rahul_id>", "share": 40},
+    {"userId": "<priya_id>", "share": 30},
+    {"userId": "<rohit_id>", "share": 30}
+  ]
+}'
+
+## 4. View Expenses
+
+### 4.1 View Individual Expenses
+### Get Rahul's expenses
+curl http://localhost:3000/api/expenses/user \
+-H "Authorization: Bearer $RAHUL_TOKEN"
+
+### 4.2 View All Expenses
+### Get all expenses
+curl http://localhost:3000/api/expenses \
+-H "Authorization: Bearer $RAHUL_TOKEN"
+
+## 5. Download Balance Sheet
+### Download Rahul's balance sheet
+curl http://localhost:3000/api/expenses/balance-sheet \
+-H "Authorization: Bearer $RAHUL_TOKEN" \
+--output rahul_balance_sheet.xlsx
+
+
+# Expected Results
+
+### Equal Split Example Result
+For the lunch expense of ₹1500:
+
+- Each person should owe ₹500.
+- The balance sheet should show:
+- Rahul paid: ₹1500
+- Priya owes: ₹500
+- Rohit owes: ₹500
+
+### Exact Split Example Result
+For the shopping expense of ₹5000:
+
+- Rahul owes: ₹1000
+- Priya paid: ₹5000
+- Rohit owes: ₹1500
+- The balance sheet will reflect these exact amounts.
+
+### Percentage Split Example Result
+For the party expense of ₹8000:
+
+- Rahul owes: ₹3200 (40%)
+- Priya owes: ₹2400 (30%)
+- Rohit paid: ₹8000
+- The final settlement should show these percentages converted to amounts.
