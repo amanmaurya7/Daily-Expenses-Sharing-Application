@@ -159,11 +159,6 @@ curl -X POST http://localhost:3000/api/expenses \
 curl http://localhost:3000/api/expenses/user \
 -H "Authorization: Bearer $RAHUL_TOKEN"
 
-### 4.2 View All Expenses
-### Get all expenses
-curl http://localhost:3000/api/expenses \
--H "Authorization: Bearer $RAHUL_TOKEN"
-
 ## 5. Download Balance Sheet
 ### Download Rahul's balance sheet
 curl http://localhost:3000/api/expenses/balance-sheet \
