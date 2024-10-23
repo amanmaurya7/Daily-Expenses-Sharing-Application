@@ -114,9 +114,9 @@ curl -X POST http://localhost:3000/api/expenses \
   "amount": 1500,
   "splitType": "EQUAL",
   "splits": [
-    {"userId": "<rahul_id>"},
-    {"userId": "<priya_id>"},
-    {"userId": "<rohit_id>"}
+    {"user": "<rahul_id>"},
+    {"user": "<priya_id>"},
+    {"user": "<rohit_id>"}
   ]
 }'
 
@@ -130,9 +130,9 @@ curl -X POST http://localhost:3000/api/expenses \
   "amount": 5000,
   "splitType": "EXACT",
   "splits": [
-    {"userId": "<rahul_id>", "share": 1000},
-    {"userId": "<priya_id>", "share": 2500},
-    {"userId": "<rohit_id>", "share": 1500}
+    {"user": "<rahul_id>", "share": 1000},
+    {"user": "<priya_id>", "share": 2500},
+    {"user": "<rohit_id>", "share": 1500}
   ]
 }'
 
@@ -146,9 +146,9 @@ curl -X POST http://localhost:3000/api/expenses \
   "amount": 8000,
   "splitType": "PERCENTAGE",
   "splits": [
-    {"userId": "<rahul_id>", "share": 40},
-    {"userId": "<priya_id>", "share": 30},
-    {"userId": "<rohit_id>", "share": 30}
+    {"user": "<rahul_id>", "share": 40},
+    {"user": "<priya_id>", "share": 30},
+    {"user": "<rohit_id>", "share": 30}
   ]
 }'
 
